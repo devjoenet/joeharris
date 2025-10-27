@@ -20,7 +20,7 @@
   const footerNavItems: NavItem[] = [
     {
       title: "Github Repo",
-      href: "https://github.com/laravel/vue-starter-kit",
+      href: import.meta.env.VITE_APP_REPO,
       icon: Folder,
     },
     {
