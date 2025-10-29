@@ -1,42 +1,87 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
-  import { provide, ref, useId } from "vue";
-  import InputRoot from "./InputRoot.vue";
-  import InputLabel from "./InputLabel.vue";
-  import InputField from "./InputField.vue";
-  import InputDescription from "./InputDescription.vue";
-  import InputTextarea from "./InputTextarea.vue";
-  import { inputInjectionKey, type InputContext } from "./index";
+  import { defineExpose } from "vue";
+  import { useTextField, type UseTextFieldProps } from "@/composables/useTextField";
 
-  const props = withDefaults(defineProps<InputContext["props"] & { multiline?: boolean }>(), {
-    variant: "filled",
-    density: "default",
-    multiline: false,
-  });
+  const props = withDefaults(
+    defineProps<
+      UseTextFieldProps & {
+        /** Optional label text shown as floating label */
+        label?: string;
+        /** Supporting (helper) text beneath the field; slot="supporting" also works */
+        supportingText?: string;
+        /** Class hooks */
+        class?: string;
+        fieldClass?: string;
+        inputClass?: string;
+      }
+    >(),
+    {
+      variant: "filled",
+      density: "default",
+      type: "text",
+      showCounter: false,
+    },
+  );
 
   const emit = defineEmits<{
-    (e: "update:modelValue", value: string | number): void;
+    (e: "update:modelValue", v: string | number): void;
+    (e: "focus", ev: FocusEvent): void;
+    (e: "blur", ev: FocusEvent): void;
+    (e: "input", ev: Event): void;
+    (e: "change", ev: Event): void;
   }>();
 
-  const isFocused = ref(false);
-  const inputId = props.id ?? useId();
+  const { modelValue, inputEl, isFocused, hasLeading, hasTrailing, hasSupportingSlot, isDisabled, isInvalid, inputId, helperId, errorId, rawValue, densityTokens, containerClasses, fieldClasses, inputClasses, supportingClasses, inputAttrs } =
+    useTextField(props, emit);
 
-  const ctx: InputContext = { props, emit, isFocused, inputId };
-  provide(inputInjectionKey, ctx);
+  defineExpose({
+    focus: () => inputEl.value?.focus(),
+    blur: () => inputEl.value?.blur(),
+  });
 </script>
 
 <template>
-  <InputRoot :variant="props.variant" :density="props.density" :error="props.error" :disabled="props.disabled">
-    <template #leading>
-      <slot name="leading" />
-    </template>
+  <div :class="[containerClasses, props.class]">
+    <div :class="fieldClasses" :data-variant="props.variant">
+      <span v-if="hasLeading" class="flex h-full items-center text-(--color-input-supporting)" aria-hidden="true">
+        <slot name="leading" />
+      </span>
 
-    <template #trailing>
-      <slot name="trailing" />
-    </template>
+      <div class="relative flex-1">
+        <input
+          ref="inputEl"
+          v-model="modelValue"
+          v-bind="inputAttrs"
+          :class="inputClasses"
+          @focus="
+            isFocused = true;
+            $emit('focus', $event);
+          "
+          @blur="
+            isFocused = false;
+            $emit('blur', $event);
+          "
+          @input="$emit('input', $event)"
+          @change="$emit('change', $event)"
+        />
 
-    <InputLabel v-if="props.label" />
-    <component :is="props.multiline ? InputTextarea : InputField" />
-  </InputRoot>
+        <label v-if="props.label" :for="inputId" class="input-label md3-label" :class="densityTokens.labelFloatTop">
+          {{ props.label }}
+        </label>
+      </div>
 
-  <InputDescription v-if="props.supportingText" />
+      <span v-if="hasTrailing" class="flex h-full items-center text-(--color-input-supporting)" aria-hidden="true">
+        <slot name="trailing" />
+      </span>
+    </div>
+
+    <div class="flex items-start justify-between">
+      <p v-if="props.supportingText || hasSupportingSlot" :id="helperId" :class="supportingClasses" aria-live="polite">
+        <slot name="supporting">{{ props.supportingText }}</slot>
+      </p>
+
+      <div v-if="props.showCounter && props.maxLength" :id="`${inputId}-counter`" class="ml-auto text-xs tabular-nums text-(--color-input-supporting)">{{ rawValue.length }}/{{ props.maxLength }}</div>
+    </div>
+  </div>
 </template>

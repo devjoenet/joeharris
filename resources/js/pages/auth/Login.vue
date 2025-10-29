@@ -1,14 +1,12 @@
 <script setup lang="ts">
-  import InputError from "@/components/InputError.vue";
   import TextLink from "@/components/TextLink.vue";
   import { Button } from "@/components/ui/button";
   import { Checkbox } from "@/components/ui/checkbox";
   import { Input } from "@/components/ui/input";
-  import { Label } from "@/components/ui/label";
   import AuthBase from "@/layouts/AuthLayout.vue";
   import { register } from "@/routes";
   import { store } from "@/routes/login";
-  import { request } from "@/routes/password";
+  import password, { email, request } from "@/routes/password";
   import { Form, Head } from "@inertiajs/vue3";
   import { LoaderCircle } from "lucide-vue-next";
 
@@ -30,9 +28,7 @@
     <Form v-bind="store.form()" :reset-on-success="['password']" v-slot="{ errors, processing }" class="flex flex-col gap-6">
       <div class="grid gap-6">
         <div class="grid gap-2">
-          <Label for="email">Email address</Label>
-          <Input id="email" type="email" name="email" required autofocus :tabindex="1" autocomplete="email" placeholder="email@example.com" />
-          <InputError :message="errors.email" />
+          <Input :v-model="email" label="Email Address" type="email" required autofocus autocomplete="email" variant="outlined" supporting-text="Use the address linked to your account" :error="Boolean(errors.email)" />
         </div>
 
         <div class="grid gap-2">
@@ -40,8 +36,7 @@
             <Label for="password">Password</Label>
             <TextLink v-if="canResetPassword" :href="request()" class="text-sm" :tabindex="5"> Forgot password? </TextLink>
           </div>
-          <Input id="password" type="password" name="password" required :tabindex="2" autocomplete="current-password" placeholder="Password" />
-          <InputError :message="errors.password" />
+          <Input :v-model="password" label="Password" type="password" required autofocus autocomplete="current-password" variant="outlined" :error="Boolean(errors.password)" />
         </div>
 
         <div class="flex items-center justify-between">
