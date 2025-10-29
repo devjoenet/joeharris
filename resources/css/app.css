@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @import "tw-animate-css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -8,33 +9,45 @@
 
 @theme inline {
   --font-sans: Instrument Sans, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
   --color-sidebar: var(--sidebar-background);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -43,14 +56,16 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-input-surface: var(--secondary);
-  --color-input-border: var(--border);
-  --color-input-ring: var(--primary);
-  --color-input-foreground: var(--foreground);
-  --color-input-label: var(--muted-foreground);
-  --color-input-supporting: var(--muted-foreground);
 }
 
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
 @layer base {
   *,
   ::after,
@@ -69,74 +84,76 @@
 }
 
 :root {
-  --md-surface: oklch(1 0 89.88);
-  --md-on-surface: oklch(0.1445 0 89.88);
-  --md-surface-variant: oklch(0.96 0.002 260);
-  --md-outline: oklch(0.78 0.005 260);
-  --md-primary: oklch(0.2044 0 89.88);
-  --md-on-primary: oklch(0.9848 0 89.88);
-  --md-error: oklch(0.6368 0.2078 25.33);
-  --md-on-error: oklch(0.9848 0 89.88);
-  --background: var(--md-surface);
-  --foreground: var(--md-on-surface);
-  --card: var(--md-surface);
-  --card-foreground: var(--md-on-surface);
-  --popover: var(--md-surface);
-  --popover-foreground: var(--md-on-surface);
-  --primary: var(--md-primary);
-  --primary-foreground: var(--md-on-primary);
-  --secondary: var(--md-surface-variant);
-  --secondary-foreground: var(--md-on-surface);
-  --muted: var(--md-surface-variant);
-  --muted-foreground: oklch(0.5555 0 89.88);
-  --accent: var(--md-surface-variant);
-  --accent-foreground: var(--md-on-surface);
-  --destructive: var(--md-error);
-  --destructive-foreground: var(--md-on-error);
-  --border: var(--md-outline);
-  --input: var(--md-surface-variant);
-  --ring: var(--md-primary);
-  --chart-1: oklch(0.7204 0.1982 47.9);
-  --chart-2: oklch(0.5919 0.091 197.76);
-  --chart-3: oklch(0.4682 0.0614 232.08);
-  --chart-4: oklch(0.7803 0.1662 94.63);
-  --chart-5: oklch(0.7448 0.1848 69.24);
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 3.9%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 3.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 3.9%);
+  --primary: hsl(0 0% 9%);
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(0 0% 92.1%);
+  --secondary-foreground: hsl(0 0% 9%);
+  --muted: hsl(0 0% 96.1%);
+  --muted-foreground: hsl(0 0% 45.1%);
+  --accent: hsl(0 0% 96.1%);
+  --accent-foreground: hsl(0 0% 9%);
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(0 0% 92.8%);
+  --input: hsl(0 0% 89.8%);
+  --ring: hsl(0 0% 3.9%);
+  --chart-1: hsl(12 76% 61%);
+  --chart-2: hsl(173 58% 39%);
+  --chart-3: hsl(197 37% 24%);
+  --chart-4: hsl(43 74% 66%);
+  --chart-5: hsl(27 87% 67%);
   --radius: 0.5rem;
-  --sidebar-background: oklch(0.9848 0 89.88);
-  --sidebar-foreground: oklch(0.3705 0.012 285.8);
-  --sidebar-primary: oklch(0.2156 0 89.88);
-  --sidebar-primary-foreground: oklch(0.9848 0 89.88);
-  --sidebar-accent: oklch(0.9542 0 89.88);
-  --sidebar-accent-foreground: oklch(0.4184 0 89.88);
-  --sidebar-border: oklch(0.9312 0 89.88);
-  --sidebar-ring: oklch(0.6232 0.1879 259.8);
-  --sidebar: oklch(0.9848 0 89.88);
+  --sidebar-background: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(0 0% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(0 0% 94%);
+  --sidebar-accent-foreground: hsl(0 0% 30%);
+  --sidebar-border: hsl(0 0% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --sidebar: hsl(0 0% 98%);
 }
 
 .dark {
-  --md-surface: oklch(0.1445 0 89.88);
-  --md-on-surface: oklch(0.9848 0 89.88);
-  --md-surface-variant: oklch(0.2686 0 89.88);
-  --md-outline: oklch(0.36 0.01 260);
-  --md-primary: oklch(0.9848 0 89.88);
-  --md-on-primary: oklch(0.2044 0 89.88);
-  --md-error: oklch(0.6356 0.2082 25.38);
-  --md-on-error: oklch(0.9848 0 89.88);
-  --md-muted-foreground: oklch(0.5555 0 89.88);
-  --chart-1: oklch(0.5292 0.1931 262.13);
-  --chart-2: oklch(0.6983 0.1337 165.46);
-  --chart-3: oklch(0.7232 0.15 60.63);
-  --chart-4: oklch(0.6192 0.2037 312.73);
-  --chart-5: oklch(0.6123 0.2093 6.39);
-  --sidebar-background: oklch(0.1815 0 89.88);
-  --sidebar-foreground: oklch(0.9688 0 89.88);
-  --sidebar-primary: oklch(1 0 89.88);
-  --sidebar-primary-foreground: oklch(1 0 89.88);
-  --sidebar-accent: oklch(0.2791 0 89.88);
-  --sidebar-accent-foreground: oklch(0.9676 0.0013 286.38);
-  --sidebar-border: oklch(0.2791 0 89.88);
-  --sidebar-ring: oklch(0.6232 0.1879 259.8);
-  --sidebar: oklch(0.2103 0.0059 285.88);
+  --background: hsl(0 0% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --card: hsl(0 0% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+  --popover: hsl(0 0% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(0 0% 9%);
+  --secondary: hsl(0 0% 14.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --muted: hsl(0 0% 16.08%);
+  --muted-foreground: hsl(0 0% 63.9%);
+  --accent: hsl(0 0% 14.9%);
+  --accent-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(0 0% 14.9%);
+  --input: hsl(0 0% 14.9%);
+  --ring: hsl(0 0% 83.1%);
+  --chart-1: hsl(220 70% 50%);
+  --chart-2: hsl(160 60% 45%);
+  --chart-3: hsl(30 80% 55%);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+  --sidebar-background: hsl(0 0% 7%);
+  --sidebar-foreground: hsl(0 0% 95.9%);
+  --sidebar-primary: hsl(360, 100%, 100%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(0 0% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(0 0% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --sidebar: hsl(240 5.9% 10%);
 }
 
 @layer base {
@@ -146,64 +163,101 @@
   body {
     @apply bg-background text-foreground;
   }
+}
 
+/* Floating label (CSS-only) */
+@layer base {
   .input-label {
-    --label-float-top: 0.5rem;
-    color: var(--color-input-label);
-    @apply absolute left-0 origin-left text-base font-medium transition-all duration-200 pointer-events-none;
+    /* density-controlled float offset (overridden inline via --label-float-top) */
+    --label-float-top: 0.5rem; /* default for 56/48px fields */
+    color: var(--muted-foreground); /* REST state: muted */
+    position: absolute;
+    left: 0; /* aligns with text start; container has px-4 */
     top: 50%;
     transform: translateY(-50%);
+    transform-origin: left;
+    font-weight: 600;
+    transition: all 0.2s;
+    pointer-events: none;
   }
+
   .peer:focus ~ .input-label,
   .peer:not(:placeholder-shown) ~ .input-label,
   .peer:-webkit-autofill ~ .input-label {
-    @apply text-xs;
-    color: var(--md-muted-foreground);
     top: var(--label-float-top);
     transform: translateY(0);
-  }
-
-  :focus-visible {
-    outline: 2px solid color-mix(in oklch, var(--ring) 60%, transparent);
-    outline-offset: 2px;
+    font-size: 0.75rem; /* text-xs */
+    color: var(--foreground); /* ACTIVE/FLOAT color */
   }
 }
 
+/* Autofill paint that respects base tokens */
 @layer utilities {
   .autofill\:surface:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px var(--color-input-surface) inset;
-    -webkit-text-fill-color: var(--color-input-foreground);
-    caret-color: var(--color-input-ring);
+    -webkit-box-shadow: 0 0 0 1000px var(--secondary) inset;
+    -webkit-text-fill-color: var(--foreground);
+    caret-color: var(--ring);
+  }
+}
+
+/* Filled & outlined container styles (no new tokens) */
+@layer utilities {
+  /* Outlined */
+  .field-outlined {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    transition:
+      box-shadow 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  .field-outlined:hover {
+    border-color: color-mix(in srgb, var(--ring) 30%, var(--border));
+  }
+  .field-outlined:focus-within {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 25%, transparent);
   }
 
-  .md3-outlined {
-    border-color: var(--color-input-border);
-    background-color: transparent;
+  /* Filled */
+  .field-filled {
+    /* a gentle surface using only base vars */
+    background-color: color-mix(in srgb, var(--secondary) 95%, var(--background));
+    border-bottom: 1px solid var(--border);
+    transition:
+      box-shadow 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
   }
-  .md3-outlined:hover {
-    border-color: color-mix(in oklch, var(--color-input-ring) 30%, var(--color-input-border));
+  .field-filled:hover {
+    background-color: color-mix(in srgb, var(--secondary) 90%, var(--background));
   }
-  .md3-outlined:focus-within {
-    border-color: var(--color-input-ring);
-    box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-input-ring) 25%, transparent);
+  .field-filled:focus-within {
+    border-bottom-color: var(--ring);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ring) 20%, transparent);
   }
-  .md3-filled {
-    background-color: color-mix(in oklch, var(--color-input-surface) 95%, var(--background));
-    border-bottom: 1px solid var(--color-input-border);
-  }
-  .md3-filled:hover {
-    background-color: color-mix(in oklch, var(--color-input-surface) 90%, var(--background));
-  }
-  .md3-filled:focus-within {
-    border-bottom-color: var(--color-input-ring);
-    box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-input-ring) 20%, transparent);
-  }
-  .md3-border {
-    border-color: var(--color-input-border);
-  }
+
+  /* Invalid state driven by base tokens */
   .is-invalid {
-    --color-input-ring: var(--destructive);
-    --color-input-border: var(--destructive);
-    --color-input-label: var(--destructive);
+    --_invalid-color: var(--destructive);
+  }
+  .is-invalid.field-outlined {
+    border-color: var(--_invalid-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--_invalid-color) 25%, transparent);
+  }
+  .is-invalid.field-filled {
+    border-bottom-color: var(--_invalid-color);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--_invalid-color) 20%, transparent);
+  }
+  .is-invalid .input-label {
+    color: var(--_invalid-color);
+  }
+}
+
+/* Optional: keyboard focus hint (global) */
+@layer base {
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ring) 60%, transparent);
+    outline-offset: 2px;
   }
 }

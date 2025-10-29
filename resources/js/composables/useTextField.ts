@@ -64,12 +64,24 @@ export function useTextField(props: UseTextFieldProps, emit: any) {
 
   const densityTokens = computed(() => {
     switch (props.density) {
-      case "comfortable":
-        return { fieldH: "h-12", inputPad: "pt-4 pb-2", labelFloatTopVar: "0.5rem" };
-      case "compact":
-        return { fieldH: "h-10", inputPad: "pt-3 pb-1", labelFloatTopVar: "0.375rem" };
-      default:
-        return { fieldH: "h-14", inputPad: "pt-5 pb-2", labelFloatTopVar: "0.5rem" };
+      case "comfortable": // 48px tall field
+        return {
+          fieldH: "h-12",
+          inputPad: "pt-4 pb-2",
+          labelFloatTopVar: "0.5rem", // label offset when floating
+        };
+      case "compact": // 40px tall field
+        return {
+          fieldH: "h-10",
+          inputPad: "pt-3 pb-1",
+          labelFloatTopVar: "0.375rem", // slightly tighter spacing
+        };
+      default: // "default" density (56px tall)
+        return {
+          fieldH: "h-14",
+          inputPad: "pt-5 pb-2",
+          labelFloatTopVar: "0.5rem",
+        };
     }
   });
 
@@ -79,7 +91,7 @@ export function useTextField(props: UseTextFieldProps, emit: any) {
     [
       "relative flex w-full items-center gap-3 rounded-xl px-4 transition-all duration-200",
       densityTokens.value.fieldH,
-      (props.variant ?? "filled") === "outlined" ? "md3-outlined border md3-border" : "md3-filled",
+      (props.variant ?? "filled") === "outlined" ? "field-outlined" : "field-filled",
       isDisabled.value ? "opacity-60 cursor-not-allowed" : "",
       isInvalid.value ? "is-invalid" : "",
       props.fieldClass ?? "",
@@ -88,11 +100,12 @@ export function useTextField(props: UseTextFieldProps, emit: any) {
       .join(" "),
   );
 
+  // input classes (colors from base tokens)
   const inputClasses = computed(() =>
     [
       "peer block w-full appearance-none border-0 bg-transparent px-0 text-base font-medium",
-      "text-[var(--color-input-foreground)] caret-[var(--color-input-ring)] outline-none",
-      "placeholder:text-transparent selection:bg-[var(--color-input-ring)]/90 selection:text-[var(--color-primary-foreground)]",
+      "text-[var(--foreground)] caret-[var(--ring)] outline-none",
+      "placeholder:text-transparent selection:bg-[var(--ring)]/90 selection:text-[var(--primary-foreground)]",
       "disabled:cursor-not-allowed disabled:opacity-70",
       densityTokens.value.inputPad,
       "autofill:surface",

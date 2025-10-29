@@ -59,7 +59,7 @@
 
       <div class="relative flex-1">
         <input ref="inputEl" v-model="modelValue" v-bind="inputAttrs" :class="inputClasses" v-on="inputEvents" />
-        <label v-if="props.label" :for="inputId" class="input-label md3-label" :style="{ '--label-float-top': densityTokens.labelFloatTopVar }">
+        <label v-if="props.label" :for="inputId" class="input-label" :style="{ '--label-float-top': densityTokens.labelFloatTopVar }">
           {{ props.label }}
         </label>
       </div>
