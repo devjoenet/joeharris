@@ -6,11 +6,8 @@
   const props = withDefaults(
     defineProps<
       UseTextFieldProps & {
-        /** Optional label text shown as floating label */
         label?: string;
-        /** Supporting (helper) text beneath the field; slot="supporting" also works */
         supportingText?: string;
-        /** Class hooks */
         class?: string;
         fieldClass?: string;
         inputClass?: string;
