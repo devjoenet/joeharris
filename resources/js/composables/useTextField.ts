@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { computed, ref, useAttrs, useId, useSlots, type HTMLAttributes } from "vue";
 import { useVModel } from "@vueuse/core";
 
@@ -64,11 +65,11 @@ export function useTextField(props: UseTextFieldProps, emit: any) {
   const densityTokens = computed(() => {
     switch (props.density) {
       case "comfortable":
-        return { fieldH: "h-12", inputPad: "pt-4 pb-2", labelFloatTop: "top-2" };
+        return { fieldH: "h-12", inputPad: "pt-4 pb-2", labelFloatTopVar: "0.5rem" };
       case "compact":
-        return { fieldH: "h-10", inputPad: "pt-3 pb-1", labelFloatTop: "top-1.5" };
+        return { fieldH: "h-10", inputPad: "pt-3 pb-1", labelFloatTopVar: "0.375rem" };
       default:
-        return { fieldH: "h-14", inputPad: "pt-5 pb-2", labelFloatTop: "top-2" };
+        return { fieldH: "h-14", inputPad: "pt-5 pb-2", labelFloatTopVar: "0.5rem" };
     }
   });
 
@@ -118,11 +119,9 @@ export function useTextField(props: UseTextFieldProps, emit: any) {
   });
 
   return {
-    // state
     modelValue,
     inputEl,
     isFocused,
-    // computed
     hasLeading,
     hasTrailing,
     hasSupportingSlot,

@@ -29,13 +29,25 @@
     (e: "change", ev: Event): void;
   }>();
 
-  const { modelValue, inputEl, isFocused, hasLeading, hasTrailing, hasSupportingSlot, isDisabled, isInvalid, inputId, helperId, errorId, rawValue, densityTokens, containerClasses, fieldClasses, inputClasses, supportingClasses, inputAttrs } =
-    useTextField(props, emit);
+  const { modelValue, inputEl, isFocused, hasLeading, hasTrailing, hasSupportingSlot, isDisabled, isInvalid, inputId, helperId, errorId, rawValue, densityTokens, containerClasses, fieldClasses, inputClasses, supportingClasses, inputAttrs } = useTextField(props, emit);
 
   defineExpose({
     focus: () => inputEl.value?.focus(),
     blur: () => inputEl.value?.blur(),
   });
+
+  const inputEvents = {
+    onFocus: (e: FocusEvent) => {
+      isFocused.value = true;
+      emit("focus", e);
+    },
+    onBlur: (e: FocusEvent) => {
+      isFocused.value = false;
+      emit("blur", e);
+    },
+    onInput: (e: Event) => emit("input", e),
+    onChange: (e: Event) => emit("change", e),
+  };
 </script>
 
 <template>
@@ -46,24 +58,8 @@
       </span>
 
       <div class="relative flex-1">
-        <input
-          ref="inputEl"
-          v-model="modelValue"
-          v-bind="inputAttrs"
-          :class="inputClasses"
-          @focus="
-            isFocused = true;
-            $emit('focus', $event);
-          "
-          @blur="
-            isFocused = false;
-            $emit('blur', $event);
-          "
-          @input="$emit('input', $event)"
-          @change="$emit('change', $event)"
-        />
-
-        <label v-if="props.label" :for="inputId" class="input-label md3-label" :class="densityTokens.labelFloatTop">
+        <input ref="inputEl" v-model="modelValue" v-bind="inputAttrs" :class="inputClasses" v-on="inputEvents" />
+        <label v-if="props.label" :for="inputId" class="input-label md3-label" :style="{ '--label-float-top': densityTokens.labelFloatTopVar }">
           {{ props.label }}
         </label>
       </div>

@@ -1,21 +1,21 @@
 {
-    "printWidth": 250,
-    "bracketSameLine": false,
-    "singleAttributePerLine": false,
-    "vueIndentScriptAndStyle": true,
-    "tabWidth": 2,
-    "plugins": ["@shufo/prettier-plugin-blade"],
-    "overrides": [
-        {
-            "files": ["*.blade.php"],
-            "options": {
-                "extraLiners": "",
-                "indentInnerHtml": true,
-                "parser": "blade",
-                "sortTailwindcssClasses": true,
-                "wrapAttributes": "force",
-                "wrapAttributesMinAttrs": 3
-            }
-        }
-    ]
+  "printWidth": 285,
+  "bracketSameLine": false,
+  "singleAttributePerLine": false,
+  "vueIndentScriptAndStyle": true,
+  "tabWidth": 2,
+  "plugins": ["@shufo/prettier-plugin-blade"],
+  "overrides": [
+    {
+      "files": ["*.blade.php"],
+      "options": {
+        "extraLiners": "",
+        "indentInnerHtml": true,
+        "parser": "blade",
+        "sortTailwindcssClasses": true,
+        "wrapAttributes": "force",
+        "wrapAttributesMinAttrs": 3
+      }
+    }
+  ]
 }
