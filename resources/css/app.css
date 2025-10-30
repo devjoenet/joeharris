@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @import "tw-animate-css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -59,12 +58,7 @@
 }
 
 /*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
+  Tailwind v3 → v4 border default compatibility
 */
 @layer base {
   *,
@@ -83,6 +77,7 @@
   }
 }
 
+/* ========= Base starter-kit tokens ========= */
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(0 0% 3.9%);
@@ -103,14 +98,12 @@
   --border: hsl(0 0% 92.8%);
   --input: hsl(0 0% 89.8%);
   --ring: hsl(0 0% 3.9%);
-  --active: hsl(217.2 91.2% 59.8%);
   --chart-1: hsl(12 76% 61%);
   --chart-2: hsl(173 58% 39%);
   --chart-3: hsl(197 37% 24%);
   --chart-4: hsl(43 74% 66%);
   --chart-5: hsl(27 87% 67%);
   --radius: 0.5rem;
-  --default-transition-duration: 400ms;
   --sidebar-background: hsl(0 0% 98%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
   --sidebar-primary: hsl(0 0% 10%);
@@ -142,7 +135,6 @@
   --border: hsl(0 0% 14.9%);
   --input: hsl(0 0% 14.9%);
   --ring: hsl(0 0% 83.1%);
-  --active: hsl(217.2 91.2% 59.8%);
   --chart-1: hsl(220 70% 50%);
   --chart-2: hsl(160 60% 45%);
   --chart-3: hsl(30 80% 55%);
@@ -163,112 +155,34 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-}
 
-/* Floating label (CSS-only) */
-@layer base {
-  .input-label {
-    /* density-controlled float offset (overridden inline via --label-float-top) */
-    --label-float-top: 0.5rem; /* default for 56/48px fields */
-    color: var(--muted-foreground); /* REST state: muted */
-    position: absolute;
-    left: 0; /* aligns with text start; container has px-4 */
-    top: 50%;
-    transform: translateY(-50%);
-    transform-origin: left;
-    font-weight: 600;
-    transition: all var(--default-transition-duration);
-    pointer-events: none;
+  :root {
+    --default-transition-duration: 300ms;
   }
 
-  .peer:focus ~ .input-label,
-  .peer:not(:placeholder-shown) ~ .input-label,
-  .peer:-webkit-autofill ~ .input-label {
-    top: var(--label-float-top);
-    transform: translateY(0);
-    font-size: 0.75rem;
-  }
-
-  .peer:focus ~ .input-label {
-    color: var(--color-sidebar-ring);
-  }
-
-  .peer:not(:focus):not(:placeholder-shown) ~ .input-label,
-  .peer:-webkit-autofill ~ .input-label {
-    color: var(--muted-foreground);
+  * {
+    transition-duration: var(--default-transition-duration);
   }
 }
 
-/* Autofill paint that respects base tokens */
+/* ========= Minimal add-ons that Tailwind can't do ========= */
 @layer utilities {
+  /* Paint autofill surface */
   .autofill\:surface:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px var(--secondary) inset;
     -webkit-text-fill-color: var(--foreground);
     caret-color: var(--ring);
   }
-}
 
-/* Filled & outlined container styles (no new tokens) */
-@layer utilities {
-  /* Outlined */
-  .field-outlined {
-    background-color: transparent;
-    border: 1px solid var(--border);
-    transition:
-      box-shadow var(--default-transition-duration),
-      border-color var(--default-transition-duration),
-      background-color var(--default-transition-duration);
-  }
-  .field-outlined:hover {
-    border-color: color-mix(in srgb, var(--ring) 30%, var(--border));
-  }
-  .field-outlined:focus-within {
-    border-color: var(--active);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--active) 25%, transparent);
-  }
-
-  /* Filled */
-  .field-filled {
-    /* a gentle surface using only base vars */
-    background-color: color-mix(in srgb, var(--secondary) 95%, var(--background));
-    border-bottom: 1px solid var(--border);
-    transition:
-      box-shadow var(--default-transition-duration),
-      border-color var(--default-transition-duration),
-      background-color var(--default-transition-duration);
-  }
-  .field-filled:hover {
-    background-color: color-mix(in srgb, var(--secondary) 90%, var(--background));
-  }
-  .field-filled:focus-within {
-    border-bottom-color: var(--active);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--active) 20%, transparent);
-  }
-
-  /* Invalid state driven by base tokens */
-  .is-invalid {
-    --_invalid-color: var(--destructive);
-  }
-  .is-invalid.field-outlined {
-    border-color: var(--_invalid-color);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--_invalid-color) 25%, transparent);
-  }
-  .is-invalid.field-filled {
-    border-bottom-color: var(--_invalid-color);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--_invalid-color) 20%, transparent);
-  }
-  .is-invalid .input-label {
-    color: var(--_invalid-color);
-  }
-}
-
-/* Optional: keyboard focus hint (global) */
-@layer base {
-  :focus-visible {
-    outline: 2px solid color-mix(in srgb, var(--active) 60%, transparent);
-    outline-offset: 2px;
+  /* Keep floating on WebKit autofill (peer class-based variants can't target this) */
+  .peer:-webkit-autofill ~ .input-label {
+    top: var(--label-float-top);
+    transform: translateY(0);
+    font-size: 0.75rem;
+    color: var(--foreground);
   }
 }

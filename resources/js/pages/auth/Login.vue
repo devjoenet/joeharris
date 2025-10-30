@@ -33,17 +33,13 @@
 
         <div class="grid gap-2">
           <div class="flex items-center justify-between">
-            <Label for="password">Password</Label>
             <TextLink v-if="canResetPassword" :href="request()" class="text-sm" :tabindex="5"> Forgot password? </TextLink>
           </div>
           <Input :v-model="password" label="Password" type="password" required autofocus autocomplete="current-password" variant="outlined" :error="Boolean(errors.password)" />
         </div>
 
         <div class="flex items-center justify-between">
-          <Label for="remember" class="flex items-center space-x-3">
-            <Checkbox id="remember" name="remember" :tabindex="3" />
-            <span>Remember me</span>
-          </Label>
+          <Checkbox name="terms" density="comfortable" label="I agree to the Terms" supportingText="You can update this setting anytime in Preferences." />
         </div>
 
         <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="processing" data-test="login-button">
