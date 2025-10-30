@@ -49,7 +49,7 @@
           <Button variant="secondary" type="submit" :disabled="processing"> <RefreshCw /> Regenerate Codes </Button>
         </Form>
       </div>
-      <div :class="['relative overflow-hidden transition-all duration-300', isRecoveryCodesVisible ? 'h-auto opacity-100' : 'h-0 opacity-0']">
+      <div :class="['relative overflow-hidden transition-all', isRecoveryCodesVisible ? 'h-auto opacity-100' : 'h-0 opacity-0']">
         <div v-if="errors?.length" class="mt-6">
           <AlertError :errors="errors" />
         </div>

@@ -1,6 +1,5 @@
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
-  import { defineExpose } from "vue";
   import { useTextField, type UseTextFieldProps } from "@/composables/useTextField";
 
   const props = withDefaults(

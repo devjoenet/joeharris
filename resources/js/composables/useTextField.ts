@@ -89,7 +89,7 @@ export function useTextField(props: UseTextFieldProps, emit: any) {
 
   const fieldClasses = computed(() =>
     [
-      "relative flex w-full items-center gap-3 rounded-xl px-4 transition-all duration-200",
+      "relative flex w-full items-center gap-3 rounded-xl px-4 transition-all",
       densityTokens.value.fieldH,
       (props.variant ?? "filled") === "outlined" ? "field-outlined" : "field-filled",
       isDisabled.value ? "opacity-60 cursor-not-allowed" : "",
